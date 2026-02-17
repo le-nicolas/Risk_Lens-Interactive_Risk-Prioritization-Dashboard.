@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Risk Lens | Helpful Risk Analysis Visuals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="hero reveal" style="--delay: 0ms;">
+    <p class="eyebrow">Risk Intelligence Board</p>
+    <h1>Helpful Risk Analysis Visuals</h1>
+    <p class="hero-text">
+      Capture uncertainty, prioritize what matters, and test mitigation choices instantly.
+      This static app runs well on GitHub Pages with no backend.
+    </p>
+
+    <section class="summary-grid" aria-label="Portfolio summary">
+      <article class="summary-card">
+        <p>Total Risks</p>
+        <h2 id="total-risks">0</h2>
+      </article>
+      <article class="summary-card">
+        <p>Critical Risks</p>
+        <h2 id="critical-risks">0</h2>
+      </article>
+      <article class="summary-card">
+        <p>Portfolio Expected Loss</p>
+        <h2 id="expected-loss">$0</h2>
+      </article>
+      <article class="summary-card">
+        <p>Median Risk Score</p>
+        <h2 id="median-score">0</h2>
+      </article>
+    </section>
+  </header>
+
+  <main class="dashboard">
+    <section class="card reveal" style="--delay: 80ms;">
+      <h3>Add Risk</h3>
+      <p class="card-caption">Create entries quickly to keep the matrix current.</p>
+
+      <form id="risk-form" class="risk-form">
+        <label>
+          Risk Name
+          <input type="text" name="name" placeholder="Ex: Supplier outage" required>
+        </label>
+
+        <label>
+          Category
+          <select name="category">
+            <option>Operations</option>
+            <option>Finance</option>
+            <option>Security</option>
+            <option>Compliance</option>
+            <option>Supply Chain</option>
+            <option>Reputation</option>
+            <option>Technology</option>
+          </select>
+        </label>
+
+        <label>
+          Likelihood (1-5)
+          <div class="range-wrap">
+            <input id="form-likelihood" type="range" name="likelihood" min="1" max="5" step="1" value="3">
+            <output id="form-likelihood-value">3</output>
+          </div>
+        </label>
+
+        <label>
+          Impact (1-5)
+          <div class="range-wrap">
+            <input id="form-impact" type="range" name="impact" min="1" max="5" step="1" value="3">
+            <output id="form-impact-value">3</output>
+          </div>
+        </label>
+
+        <label>
+          Exposure Amount (USD)
+          <input type="number" name="exposure" min="0" step="1000" value="50000" required>
+        </label>
+
+        <label>
+          Owner
+          <input type="text" name="owner" placeholder="Ex: Ops Team">
+        </label>
+
+        <button type="submit" class="primary">Add Risk</button>
+      </form>
+
+      <div class="form-actions">
+        <button id="load-demo" type="button" class="ghost">Load Demo Portfolio</button>
+        <button id="clear-risks" type="button" class="ghost danger">Clear All</button>
+      </div>
+    </section>
+
+    <section class="card reveal" style="--delay: 140ms;">
+      <h3>5x5 Risk Matrix</h3>
+      <p class="card-caption">Bubble color reflects band. Click a point to inspect mitigation.</p>
+
+      <div class="matrix-wrap">
+        <div id="matrix-grid" class="matrix-grid" aria-hidden="true"></div>
+        <div id="matrix-points" class="matrix-points" aria-label="Risk points"></div>
+      </div>
+
+      <p id="matrix-tip" class="matrix-tip">No risks yet. Add one or load demo data.</p>
+    </section>
+
+    <section class="card reveal" style="--delay: 200ms;">
+      <h3>Priority Ranking</h3>
+      <p class="card-caption">Ranks by score first, then expected loss.</p>
+
+      <div id="ranking-list" class="ranking-list"></div>
+    </section>
+
+    <section class="card reveal" style="--delay: 260ms;">
+      <h3>Mitigation Planner</h3>
+      <p class="card-caption">Simulate residual risk after reducing likelihood and impact.</p>
+
+      <label>
+        Selected Risk
+        <select id="selected-risk"></select>
+      </label>
+
+      <label>
+        Likelihood Reduction
+        <div class="range-wrap">
+          <input id="like-cut" type="range" min="0" max="0" value="0" step="1">
+          <output id="like-cut-value">0</output>
+        </div>
+      </label>
+
+      <label>
+        Impact Reduction
+        <div class="range-wrap">
+          <input id="impact-cut" type="range" min="0" max="0" value="0" step="1">
+          <output id="impact-cut-value">0</output>
+        </div>
+      </label>
+
+      <div id="mitigation-summary" class="mitigation-summary"></div>
+
+      <div class="compare-bars" aria-label="Score comparison">
+        <div class="compare-row">
+          <span>Before</span>
+          <div class="track"><div id="before-score" class="fill before"></div></div>
+          <b id="before-score-label">0</b>
+        </div>
+        <div class="compare-row">
+          <span>After</span>
+          <div class="track"><div id="after-score" class="fill after"></div></div>
+          <b id="after-score-label">0</b>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footnote">Built as a lightweight static application for GitHub Pages.</footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
