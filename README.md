@@ -2,6 +2,8 @@
 
 A lightweight static web app for interactive risk analysis. It is designed to run directly in the browser and publish cleanly on GitHub Pages.
 
+![Risk Lens dashboard preview](assets/risk-lens-preview.svg)
+
 ## What it includes
 
 - Editable risk register with likelihood, impact, owner, and dollar exposure
